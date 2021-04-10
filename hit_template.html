@@ -1,0 +1,122 @@
+<!-- You must include this JavaScript file -->
+<script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+
+
+<!-- For the full list of available Crowd HTML Elements and their input/output documentation,
+      please refer to https://docs.aws.amazon.com/sagemaker/latest/dg/sms-ui-template-reference.html -->
+
+<!-- You must include crowd-form so that your task submits answers to MTurk -->
+<crowd-form answer-format="flatten-objects">
+
+    <!-- The crowd-classifier element will create a tool for the Worker to select the
+           correct answer to your question.
+
+          Your image file URLs will be substituted for the "image_url" variable below 
+          when you publish a batch with a CSV input file containing multiple image file URLs.
+          To preview the element with an example image, try setting the src attribute to
+          "https://s3.amazonaws.com/cv-demo-images/one-bird.jpg" -->
+          
+<short-instructions>
+ <p>
+    Consider the following set of unorganized images. For each image, label which position it would be in if the images were sorted in chronological order.
+    Please do not select the same ordering for more than one image (i.e. do not select “First” for more than one image)
+ </p>
+   <img id="img_1" width="25%" src="{image_url_1}" />
+   <img id="img_2" width="25%" src="{image_url_1}" />
+   <img id="img_3" width="25%" src="{image_url_1}" />
+   <img id="img_4" width="25%" src="{image_url_1}" />
+</short-instructions>   
+
+        <!--src="${image_url_1}"-->
+    <crowd-image-classifier
+        src="${image_url_1}"
+        categories="['First', 'Second', 'Third', 'Fourth']"
+        header="Choose the correct chronological order for this image."
+        
+        id="image-classifier-1"
+        name="category_1">
+        <full-instructions header="Classification Instructions">
+            <p>Read the task carefully and inspect the image.</p>
+            <p>Choose the appropriate label that best suits the image.</p>
+        </full-instructions>
+    </crowd-image-classifier>
+    
+    <crowd-image-classifier
+        src="${image_url_1}"
+        categories="['First', 'Second', 'Third', 'Fourth']"
+        header="Choose the correct chronological order for this image."
+        id="image-classifier-2"
+        name="category_2">
+        <full-instructions header="Classification Instructions">
+            <p>Read the task carefully and inspect the image.</p>
+            <p>Choose the appropriate label that best suits the image.</p>
+        </full-instructions>
+        </crowd-image-classifier>
+        
+    <crowd-image-classifier
+        src="${image_url_1}"
+        categories="['First', 'Second', 'Third', 'Fourth']"
+        header="Choose the correct chronological order for this image."
+        id="image-classifier-3"
+        name="category_3">
+        <full-instructions header="Classification Instructions">
+            <p>Read the task carefully and inspect the image.</p>
+            <p>Choose the appropriate label that best suits the image.</p>
+        </full-instructions>
+        </crowd-image-classifier>
+        
+    <crowd-image-classifier
+        src="${image_url_1}"
+        categories="['First', 'Second', 'Third', 'Fourth']"
+        header="Choose the correct chronological order for this image."
+        id="image-classifier-4"
+        name="category_4">
+        <full-instructions header="Classification Instructions">
+            <p>Read the task carefully and inspect the image.</p>
+            <p>Choose the appropriate label that best suits the image.</p>
+        </full-instructions>
+        </crowd-image-classifier>
+        
+</crowd-form>
+
+<script language="javascript">
+    function shuffle(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+    
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+    
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+    
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+    
+      return array;
+    }
+
+    var array = ["${image_url_1}", "${image_url_2}", "${image_url_3}", "${image_url_4}"];
+    array = shuffle(array);
+    
+    const img_1 = document.querySelector("#img_1");
+    img_1.src = array[0];
+    const img_2 = document.querySelector("#img_2");
+    img_2.src = array[1];
+    // const img_3 = document.querySelector("#img_3");
+    // img_3.src = array[2];
+    // const img_4 = document.querySelector("#img_4");
+    // img_4.src = array[3];
+    
+    const img_classifier_1 = document.querySelector("#image-classifier-1");
+    img_classifier_1.src = array[0];
+    const img_classifier_2 = document.querySelector("#image-classifier-2");
+    img_classifier_2.src = array[1];
+    // const img_classifier_3 = document.querySelector("#image-classifier-3");
+    // img_classifier_3.src = array[2];
+    // const img_classifier_4 = document.querySelector("#image-classifier-4");
+    // img_classifier_4.src = array[3];
+</script>
